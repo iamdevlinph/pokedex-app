@@ -8,8 +8,9 @@ import { Text } from '@/components/text';
 import useURLState from '@/hooks/use-param-state';
 import { PokeTypesResponse, PokePageResponse } from '@/utils/types';
 import { useQuery } from '@tanstack/react-query';
+import { Suspense } from 'react';
 
-export default function PokedexPage() {
+function PokedexPageWrapper() {
   const defaultParams = { page: 1, types: [], name: '' };
   const { params, setParams } = useURLState(defaultParams);
 
@@ -39,7 +40,7 @@ export default function PokedexPage() {
       <Text as="h1">Pokedex</Text>
 
       <div
-        className="grid-rows-custom-max-4fr lg:grid-cols-custom-1fr-4fr grid gap-1"
+        className="grid grid-rows-custom-max-4fr gap-1 lg:grid-cols-custom-1fr-4fr"
         // style={{
         //   gridTemplateColumns: '1fr 4fr',
         // }}
@@ -88,4 +89,16 @@ export default function PokedexPage() {
       </div>
     </div>
   );
+}
+
+const SuspenseWrapper = () => {
+  return (
+    <Suspense>
+      <PokedexPageWrapper />
+    </Suspense>
+  );
+};
+
+export default function PokedexPage() {
+  return <SuspenseWrapper />;
 }

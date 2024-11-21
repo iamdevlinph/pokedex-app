@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams } from 'react-router-dom';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export type StateParams = {
   name?: string | null;
@@ -9,7 +9,9 @@ export type StateParams = {
 };
 
 const useURLState = (defaultParams: StateParams) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
 
   // Parse URL parameters into a Params object
   const getParams = (): StateParams => {
@@ -29,12 +31,24 @@ const useURLState = (defaultParams: StateParams) => {
 
     const newSearchParams = new URLSearchParams();
 
-    if (newParams.name) newSearchParams.set('name', newParams.name);
-    if (newParams.page) newSearchParams.set('page', newParams.page.toString());
+    if (newParams.name) {
+      newSearchParams.set('name', newParams.name);
+    } else {
+      // newSearchParams.delete('name');
+    }
+
+    if (newParams.page) {
+      newSearchParams.set('page', newParams.page.toString());
+    } else {
+      // newSearchParams.delete('page');
+    }
+
     if (newParams.types && newParams.types.length > 0)
       newSearchParams.set('types', newParams.types.join(','));
 
-    setSearchParams(newSearchParams);
+    // Updating the URL with new search params
+    console.log(`${pathname}?${newSearchParams.toString()}`);
+    replace(`${pathname}?${newSearchParams.toString()}`);
   };
 
   return { params: getParams(), setParams };

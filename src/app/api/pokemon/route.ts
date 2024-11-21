@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ITEMS_PER_PAGE } from '@/constants';
 import { ExpandRecursively } from '@/utils/types';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const page = parseInt(searchParams.get('page') || '1');
   const pokemon = searchParams.get('pokemon');
@@ -22,6 +23,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     try {
       return Response.json({
+        // @ts-ignore
         data: await formatFromTypesFetch(typesPromises, typesArr),
       });
     } catch (e) {
@@ -136,8 +138,11 @@ async function getPokeInfoFromNameArr(names: string[]) {
 
   const pokemonData = pokeInfoResult.map((pokeInfo) => {
     return {
+      // @ts-ignore
       name: pokeInfo.value.name as string,
+      // @ts-ignore
       types: getTypes(pokeInfo.value.types) as string[],
+      // @ts-ignore
       sprite: pokeInfo.value.sprites.other['official-artwork'].front_default as string,
     };
   });

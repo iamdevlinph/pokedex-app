@@ -1,42 +1,17 @@
 'use client';
 
 import { FIRST_MIDDLE_PAGINATION, LAST_MIDDLE_PAGINATION } from '@/constants';
-import { StateParams } from '@/hooks/use-param-state';
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 const usePagination = ({
   currentPage,
-  newPage,
-  direction,
-  total,
 }: {
   currentPage: number;
   newPage?: number;
   direction?: 'next' | 'prev';
   total?: number;
 }) => {
-  const [searchParams, _setSearchParams] = useSearchParams();
-
   const [pages, setPages] = useState(generatePages(currentPage));
-
-  const incrementPages = () => {
-    const newPages = pages.map((page) => page++);
-    setPages(newPages);
-  };
-
-  const decrementPagePages = () => {
-    const newPages = pages.map((page) => page--);
-    setPages(newPages);
-  };
-
-  // if (newPage) {
-
-  // }
-
-  // if (direction) {
-
-  // }
 
   return { pages };
 };

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
 
 export default function Store({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -18,7 +18,8 @@ export default function Store({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>{children}</BrowserRouter>
+      {/* <BrowserRouter>{children}</BrowserRouter> */}
+      {children}
     </QueryClientProvider>
   );
 }

@@ -19,7 +19,7 @@ const menuItems: MenuItem[] = [
   { title: 'Pokedex', href: '/pokedex' },
 ];
 
-const MenuItemComponent: React.FC<{ item: MenuItem; depth?: number; active: boolean }> = ({
+const MenuItemComponent: React.FC<{ item: MenuItem; depth?: number; active?: boolean }> = ({
   item,
   depth = 0,
   active = false,
@@ -42,7 +42,12 @@ const MenuItemComponent: React.FC<{ item: MenuItem; depth?: number; active: bool
         </CollapsibleTrigger>
         <CollapsibleContent>
           {item.submenu.map((subItem) => (
-            <MenuItemComponent key={subItem.title} item={subItem} depth={depth + 1} />
+            <MenuItemComponent
+              key={subItem.title}
+              item={subItem}
+              depth={depth + 1}
+              // active={active}
+            />
           ))}
         </CollapsibleContent>
       </Collapsible>
@@ -55,7 +60,7 @@ const MenuItemComponent: React.FC<{ item: MenuItem; depth?: number; active: bool
       className={cn(
         'block py-2 text-lg font-medium transition-colors hover:text-primary',
         depth > 0 && 'pl-4',
-        active && 'text-primary',
+        item.href === '/' && 'text-primary',
       )}
     >
       {item.title}
@@ -80,7 +85,7 @@ export default function HamburgerMenu() {
             <MenuItemComponent
               key={item.title}
               item={item}
-              active={item.href === window.location.pathname}
+              // active={window && item.href === window.location.pathname}
             />
           ))}
         </nav>
