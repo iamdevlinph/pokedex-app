@@ -1,7 +1,9 @@
-import { ITEMS_PER_PAGE } from '@/constants';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const fetchTypes = () =>
-  fetch(`http://localhost:3000/api/poke-types`)
+  fetch(`/api/poke-types`)
     .then((res) => res.json())
     .then((data) => data.data);
 
@@ -14,26 +16,11 @@ const fetchPokemonsV2 = ({
   pokemonName?: string | null;
   pokemonTypes?: string[];
 }) =>
-  fetch(
-    `http://localhost:3000/api/pokemon?page=${page}&pokemon=${pokemonName}&types=${pokemonTypes}`,
-  )
+  fetch(`/api/pokemon?page=${page}&pokemon=${pokemonName}&types=${pokemonTypes}`)
     .then((res) => res.json())
     .then((data) => data);
 
-const fetchPokemonByUrl = (url: string) => {
-  return fetch(url).then((res) => res.json());
-};
-
-const fetchAllPokemonNames = () => {
-  return fetch(`https://pokeapi.co/api/v2/pokemon/?limit=2000`).then((res) => res.json());
-};
-
-const searchByType = ({ type }: { type: string[] }) => {};
-
 export const API = {
   fetchTypes,
-  searchByType,
-  fetchPokemonByUrl,
-  fetchAllPokemonNames,
   fetchPokemonsV2,
 };
