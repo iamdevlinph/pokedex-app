@@ -1,3 +1,24 @@
 {
-  "editor.formatOnSave": false
+  "editor.formatOnSave": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    "class:list",
+    ".*Styles.*" // https://www.jussivirtanen.fi/writing/using-tailwind-intellisense-within-strings
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always" // fix linting issues on save
+  }
+  // "tailwindCSS.experimental.classRegex": [
+  //   ["(?:twMerge|twJoin|cn)\\(([^;]*)[\\);]", "[`'\"`]([^'\"`;]*)[`'\"`]"]
+  // ]
 }
